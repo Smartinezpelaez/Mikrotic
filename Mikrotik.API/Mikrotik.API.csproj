@@ -195,6 +195,23 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\css\bootstrap-grid.css" />
+    <Content Include="Assets\css\bootstrap-grid.min.css" />
+    <Content Include="Assets\css\bootstrap-reboot.css" />
+    <Content Include="Assets\css\bootstrap-reboot.min.css" />
+    <Content Include="Assets\css\bootstrap.css" />
+    <Content Include="Assets\css\bootstrap.min.css" />
+    <Content Include="Assets\css\carousel.css" />
+    <Content Include="Assets\css\font-awesome.css" />
+    <Content Include="Assets\css\font-awesome.min.css" />
+    <Content Include="Assets\fonts\fontawesome-webfont.svg" />
+    <Content Include="Assets\js\bootstrap.bundle.js" />
+    <Content Include="Assets\js\bootstrap.bundle.min.js" />
+    <Content Include="Assets\js\bootstrap.js" />
+    <Content Include="Assets\js\bootstrap.min.js" />
+    <Content Include="Assets\js\datatable.bootstrap.js" />
+    <Content Include="Assets\js\datatable.core.js" />
+    <Content Include="Assets\js\jquery-3.2.1.min.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -205,6 +222,21 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Assets\css\bootstrap-grid.css.map" />
+    <Content Include="Assets\css\bootstrap-grid.min.css.map" />
+    <Content Include="Assets\css\bootstrap-reboot.css.map" />
+    <Content Include="Assets\css\bootstrap-reboot.min.css.map" />
+    <Content Include="Assets\css\bootstrap.css.map" />
+    <Content Include="Assets\css\bootstrap.min.css.map" />
+    <Content Include="Assets\fonts\fontawesome-webfont.eot" />
+    <Content Include="Assets\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Assets\fonts\fontawesome-webfont.woff" />
+    <Content Include="Assets\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Assets\fonts\FontAwesome.otf" />
+    <Content Include="Assets\js\bootstrap.bundle.js.map" />
+    <Content Include="Assets\js\bootstrap.bundle.min.js.map" />
+    <Content Include="Assets\js\bootstrap.js.map" />
+    <Content Include="Assets\js\bootstrap.min.js.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
