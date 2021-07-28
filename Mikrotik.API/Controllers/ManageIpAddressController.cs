@@ -13,7 +13,7 @@ namespace Mikrotik.API.Controllers
             {
                 var mikrotikService = new BL.Services.MikrotikService();
                 ViewBag.IpAddress = mikrotikService.GetIpAddress();
-                ViewBag.Route = mikrotikService.GetRoute();     
+                ViewBag.Route = mikrotikService.GetRoute();
 
                 return View(new AddIpAddressDTO());
             }
@@ -25,14 +25,18 @@ namespace Mikrotik.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddIpAddress(AddIpAddressDTO model)
+        public ActionResult Add(AddIpAddressDTO model)
         {
             try
             {
                 var mikrotikService = new BL.Services.MikrotikService();
-                mikrotikService.AddIpAddress(model.Address,
-                    model.Interface,
-                    model.Network);
+
+                if (ModelState.IsValid)
+                {                    
+                    mikrotikService.AddIpAddress(model.Address,
+                        model.Interface,
+                        model.Network);
+                }
 
                 ViewBag.IpAddress = mikrotikService.GetIpAddress();
                 ViewBag.Route = mikrotikService.GetRoute();

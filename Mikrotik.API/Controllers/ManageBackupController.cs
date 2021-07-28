@@ -31,9 +31,7 @@ namespace Mikrotik.API.Controllers
                 var mikrotikService = new BL.Services.MikrotikService();
 
                 mikrotikService.ExportFile();
-                ViewBag.File = mikrotikService.GetFiles().Where(x => x.Name.Contains(".rsc")).ToList();
-
-                return View("Index");
+                return RedirectToAction("Index", "ManageBackup");
             }
             catch (Exception ex)
             {
@@ -50,11 +48,9 @@ namespace Mikrotik.API.Controllers
                 var mikrotikService = new BL.Services.MikrotikService();
 
                 var files = mikrotikService.GetFiles().Where(x => x.Name.Contains(".rsc")).ToList();
-                var file = files.FirstOrDefault(x => x.Id.Equals(id));
+                var file = files.FirstOrDefault(x => x.Id.Replace("*", string.Empty).Equals(id));
                 mikrotikService.ImportFile(file.Name);
-                ViewBag.File = files;
-
-                return View("Index");
+                return RedirectToAction("Index", "ManageBackup");
             }
             catch (Exception ex)
             {

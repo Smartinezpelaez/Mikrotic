@@ -12,10 +12,11 @@
 }
 
 <div class="container" style="margin-top:90px;">
-    <h1>Manage Ip Address</h1>
+    <h1>Manage Backup</h1>
     <hr />
     <div class="row">
-        @Html.ActionLink("Export File", "ExportFile", "ManageBackup", new { @class = "btn btn-primary" })
+        @Html.ActionLink("Export File", "ExportFile", null, "ManageBackup", new { @class = "btn btn-primary" })
+        @Html.ActionLink("Back", "Index", "Dashboard", null, new { @class = "btn btn-primary" })
     </div>
     <hr />
     <h1>Ip Address</h1>
@@ -53,7 +54,7 @@
                                 @Html.DisplayFor(modelItem => item.CreationTime)
                             </td>
                             <td>
-                                @Html.ActionLink("Import", "ImportFile", "ManageBackup", new { id = item.Id }, null)
+                                @Html.ActionLink("Import", "ImportFile", "ManageBackup", new { id = item.Id.Replace("*", string.Empty) }, null)
                             </td>
                         </tr>
                     }

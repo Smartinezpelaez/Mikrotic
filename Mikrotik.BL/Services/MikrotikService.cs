@@ -29,11 +29,11 @@ namespace Mikrotik.BL.Services
         }
 
         /// <summary>
-        /// ExecuteCommand
+        /// ExecuteReader
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        public List<Dictionary<string, string>> ExecuteCommand(string command)
+        public List<Dictionary<string, string>> ExecuteReader(string command)
         {
             try
             {
@@ -49,12 +49,38 @@ namespace Mikrotik.BL.Services
                     var dictionaryData = new Dictionary<string, string>();
                     var splitData = line.Replace("!re=", string.Empty).Split('=');
                     for (int i = 0; i < splitData.Length; i += 2)
+                    {
+                        if (splitData[i].Contains("contents"))
+                            break;
                         dictionaryData.Add(splitData[i], splitData[i + 1]);
+                    }
 
                     data.Add(dictionaryData);
                 }
 
                 return data;
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
+        /// <summary>
+        /// ExecuteNonQuery
+        /// </summary>
+        /// <param name="command"></param>
+        /// <param name="parameters"></param>
+        public void ExecuteNonQuery(string command,
+            Dictionary<string, string> parameters)
+        {
+            try
+            {
+                if (connection == null)
+                    throw new Exception("MKConnection is null");
+
+                var cmd = connection.CreateCommand(command);
+                foreach (var item in parameters)
+                    cmd.Parameters.Add(item.Key, item.Value);
+
+                cmd.ExecuteNonQuery();
             }
             catch (Exception ex) { throw ex; }
         }
@@ -66,7 +92,7 @@ namespace Mikrotik.BL.Services
         public List<QueueSimpleDTO> GetQueueSimple()
         {
             var data = new List<QueueSimpleDTO>();
-            var resultCommand = ExecuteCommand("/queue/simple/print");
+            var resultCommand = ExecuteReader("/queue/simple/print");
             foreach (var item in resultCommand)
             {
                 var speed = item["max-limit"].Split('/').Select(x => Convert.ToInt32(x)).ToList();
@@ -90,7 +116,7 @@ namespace Mikrotik.BL.Services
         public SystemResourceDTO GetSystemResource()
         {
             var data = new SystemResourceDTO();
-            var resultCommand = ExecuteCommand("/system/resource/print");
+            var resultCommand = ExecuteReader("/system/resource/print");
 
             foreach (var item in resultCommand)
             {
@@ -113,7 +139,7 @@ namespace Mikrotik.BL.Services
         public List<InterfaceDTO> GetInterface()
         {
             var data = new List<InterfaceDTO>();
-            var resultCommand = ExecuteCommand("/interface/print");
+            var resultCommand = ExecuteReader("/interface/print");
 
             foreach (var item in resultCommand)
             {
@@ -136,7 +162,7 @@ namespace Mikrotik.BL.Services
         public List<RouteDTO> GetRoute()
         {
             var data = new List<RouteDTO>();
-            var resultCommand = ExecuteCommand("/ip/route/print");
+            var resultCommand = ExecuteReader("/ip/route/print");
 
             foreach (var item in resultCommand)
             {
@@ -159,7 +185,7 @@ namespace Mikrotik.BL.Services
         public List<IpAddressDTO> GetIpAddress()
         {
             var data = new List<IpAddressDTO>();
-            var resultCommand = ExecuteCommand("/ip/address/print");
+            var resultCommand = ExecuteReader("/ip/address/print");
 
             foreach (var item in resultCommand)
             {
@@ -185,7 +211,13 @@ namespace Mikrotik.BL.Services
             string interfaceAddress,
             string network)
         {            
-            var resultCommand = ExecuteCommand($"/ip address add address={address} interface={interfaceAddress} network={network}");
+            var parameters = new Dictionary<string, string>
+            {
+                { "address", address },
+                { "interface", interfaceAddress },
+                { "network", network },
+            };
+            ExecuteNonQuery("ip address add", parameters);
         }
 
         /// <summary>
@@ -195,7 +227,7 @@ namespace Mikrotik.BL.Services
         public List<FileDTO> GetFiles()
         {
             var data = new List<FileDTO>();
-            var resultCommand = ExecuteCommand("/file/print");
+            var resultCommand = ExecuteReader("/file/print");
 
             foreach (var item in resultCommand)
             {
@@ -204,7 +236,7 @@ namespace Mikrotik.BL.Services
                     Id = item[".id"],
                     Name = item["name"],
                     Type = item["type"],
-                    Size = item["size"],
+                    Size = item.ContainsKey("size") ? item["size"] : string.Empty,
                     CreationTime = item["creation-time"]
                 });
             }
@@ -217,8 +249,11 @@ namespace Mikrotik.BL.Services
         /// </summary>
         public void ExportFile()
         {
-            var fileName = string.Format("bck{0}", DateTime.UtcNow.ToString("yyyyMMdd"));
-            var resultCommand = ExecuteCommand($"export file={fileName}");
+            var parameters = new Dictionary<string, string>
+            {
+                { "file", string.Format("bck{0}", DateTime.UtcNow.ToString("yyyyMMddHHmmss")) }
+            };
+            ExecuteNonQuery("export", parameters);
         }
 
         /// <summary>
@@ -226,8 +261,12 @@ namespace Mikrotik.BL.Services
         /// </summary>
         /// <param name="fileName"></param>
         public void ImportFile(string fileName)
-        {
-            var resultCommand = ExecuteCommand($"import file={fileName}");
+        {           
+            var parameters = new Dictionary<string, string>
+            {
+                { "file", fileName }
+            };
+            ExecuteNonQuery("import", parameters);
         }
     }
 }
