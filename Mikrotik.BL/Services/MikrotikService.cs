@@ -44,13 +44,6 @@ namespace Mikrotik.BL.Services
                 var cmd = connection.CreateCommand(command);
                 var result = cmd.ExecuteReader();
 
-                //only test
-                //var result = new List<string> {
-                //    "!re=.id=*2=name=antonio=target=192.168.120.251/32=parent=none=packet-marks==priority=8/8=queue=default-small/default-small=limit-at=0/0=max-limit=1000000/128000=burst-limit=0/0=burst-threshold=0/0=burst-time=0s/0s=bucket-size=0.1/0.1=bytes=0/0=total-bytes=0=packets=0/0=total-packets=0=dropped=0/0=total-dropped=0=rate=0/0=total-rate=0=packet-rate=0/0=total-packet-rate=0=queued-packets=0/0=total-queued-packets=0=queued-bytes=0/0=total-queued-bytes=0=invalid=false=dynamic=false=disabled=false",
-                //    "!re=.id=*3=name=valeria=target=192.168.120.254/32=parent=none=packet-marks==priority=8/8=queue=default-small/default-small=limit-at=0/0=max-limit=512000/128000=burst-limit=0/0=burst-threshold=0/0=burst-time=0s/0s=bucket-size=0.1/0.1=bytes=0/0=total-bytes=0=packets=0/0=total-packets=0=dropped=0/0=total-dropped=0=rate=0/0=total-rate=0=packet-rate=0/0=total-packet-rate=0=queued-packets=0/0=total-queued-packets=0=queued-bytes=0/0=total-queued-bytes=0=invalid=false=dynamic=false=disabled=false",
-                //    "!re=.id=*4=name=juan=target=10.10.128.251/32=parent=none=packet-marks==priority=8/8=queue=default-small/default-small=limit-at=0/0=max-limit=1000000/256000=burst-limit=0/0=burst-threshold=0/0=burst-time=0s/0s=bucket-size=0.1/0.1=bytes=0/0=total-bytes=0=packets=0/0=total-packets=0=dropped=0/0=total-dropped=0=rate=0/0=total-rate=0=packet-rate=0/0=total-packet-rate=0=queued-packets=0/0=total-queued-packets=0=queued-bytes=0/0=total-queued-bytes=0=invalid=false=dynamic=false=disabled=false"
-                //};
-
                 foreach (var line in result)
                 {
                     var dictionaryData = new Dictionary<string, string>();
@@ -101,7 +94,7 @@ namespace Mikrotik.BL.Services
 
             foreach (var item in resultCommand)
             {
-                data = new SystemResourceDTO()
+                data = new SystemResourceDTO
                 {
                     BoardName = item["board-name"],
                     Uptime = item["uptime"],
@@ -124,7 +117,7 @@ namespace Mikrotik.BL.Services
 
             foreach (var item in resultCommand)
             {
-                data.Add(new InterfaceDTO()
+                data.Add(new InterfaceDTO
                 {
                     Id = item[".id"],
                     Type = item["type"],
@@ -147,7 +140,7 @@ namespace Mikrotik.BL.Services
 
             foreach (var item in resultCommand)
             {
-                data.Add(new RouteDTO()
+                data.Add(new RouteDTO
                 {
                     Id = item[".id"],
                     DstAddress = item["dst-address"].Split('/')[0],
@@ -157,6 +150,84 @@ namespace Mikrotik.BL.Services
             }
 
             return data;
+        }
+
+        /// <summary>
+        /// GetIpAddress
+        /// </summary>
+        /// <returns></returns>
+        public List<IpAddressDTO> GetIpAddress()
+        {
+            var data = new List<IpAddressDTO>();
+            var resultCommand = ExecuteCommand("/ip/address/print");
+
+            foreach (var item in resultCommand)
+            {
+                data.Add(new IpAddressDTO
+                {
+                    Id = item[".id"],
+                    Address = item["address"].Split('/')[0],
+                    Network = item["network"],
+                    Interface = item["interface"]
+                });
+            }
+
+            return data;
+        }
+
+        /// <summary>
+        /// AddIpAddress
+        /// </summary>
+        /// <param name="address"></param>
+        /// <param name="interfaceAddress"></param>
+        /// <param name="network"></param>
+        public void AddIpAddress(string address,
+            string interfaceAddress,
+            string network)
+        {            
+            var resultCommand = ExecuteCommand($"/ip address add address={address} interface={interfaceAddress} network={network}");
+        }
+
+        /// <summary>
+        /// GetFile
+        /// </summary>
+        /// <returns></returns>
+        public List<FileDTO> GetFiles()
+        {
+            var data = new List<FileDTO>();
+            var resultCommand = ExecuteCommand("/file/print");
+
+            foreach (var item in resultCommand)
+            {
+                data.Add(new FileDTO
+                {
+                    Id = item[".id"],
+                    Name = item["name"],
+                    Type = item["type"],
+                    Size = item["size"],
+                    CreationTime = item["creation-time"]
+                });
+            }
+
+            return data;
+        }
+
+        /// <summary>
+        /// ExportFile
+        /// </summary>
+        public void ExportFile()
+        {
+            var fileName = string.Format("bck{0}", DateTime.UtcNow.ToString("yyyyMMdd"));
+            var resultCommand = ExecuteCommand($"export file={fileName}");
+        }
+
+        /// <summary>
+        /// ImportFile
+        /// </summary>
+        /// <param name="fileName"></param>
+        public void ImportFile(string fileName)
+        {
+            var resultCommand = ExecuteCommand($"import file={fileName}");
         }
     }
 }

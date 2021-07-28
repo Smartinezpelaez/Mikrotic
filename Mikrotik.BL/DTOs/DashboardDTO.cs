@@ -1,5 +1,5 @@
 ﻿namespace Mikrotik.BL.DTOs
-{
+{    
     public class QueueSimpleDTO
     {
         public string Id { get; set; }
@@ -31,6 +31,22 @@
         public string DstAddress { get; set; }
         public string Gateway { get; set; }
         public string Distance { get; set; }
+    }
 
+    public class IpAddressDTO
+    {
+        public string Id { get; set; }
+        public string Address { get; set; }
+        public string Network { get; set; }
+        public string Interface { get; set; }
+    }
+
+    public class FileDTO
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Type { get; set; }
+        public string Size { get; set; }
+        public string CreationTime { get; set; }
     }
 }

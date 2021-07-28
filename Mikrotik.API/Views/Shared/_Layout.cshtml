@@ -7,9 +7,11 @@
     <title>Mikrotik</title>
 
     <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery-2.2.4.min.js"></script>
+    <script src="~/Scripts/"></script>
     <link rel="stylesheet" href="~/Content/bootstrap.min.css">
     <link rel="stylesheet" href="~/Assets/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="~/Content/morris.css">
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -22,7 +24,10 @@
                 </button>
                 @Html.ActionLink("Mikrotik", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">                
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Connect Router API", "Client", "Dashboard")</li>
+                </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
@@ -31,10 +36,9 @@
         @RenderBody()
         <hr />
         <footer>
-            
         </footer>
     </div>
-   
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

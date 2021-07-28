@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="DTOs\ClientDTO.cs" />
     <Compile Include="DTOs\DashboardDTO.cs" />
+    <Compile Include="DTOs\ManageIpAddressDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\MikrotikService.cs" />
   </ItemGroup>
