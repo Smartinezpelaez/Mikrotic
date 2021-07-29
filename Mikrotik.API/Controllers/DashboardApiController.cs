@@ -7,6 +7,11 @@ namespace Mikrotik.API.Controllers
     [RoutePrefix("DashboardApi")]
     public class DashboardApiController : ApiController
     {
+          /// <summary>
+         /// 
+        /// </summary>
+        /// <param name="clientDTO"></param>
+       /// <returns></returns>
         [Route("Client")]
         [HttpPost]
         public IHttpActionResult Client(ClientDTO clientDTO)
@@ -29,6 +34,11 @@ namespace Mikrotik.API.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        ///  /// <param name="GetSystemResource"></param>
+        /// <returns></returns>
         [Route("GetSystemResource")]
         [HttpGet]
         public IHttpActionResult GetSystemResource()
@@ -46,6 +56,10 @@ namespace Mikrotik.API.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [Route("GetQueueSimple")]
         [HttpGet]
         public IHttpActionResult GetQueueSimple()
@@ -63,6 +77,11 @@ namespace Mikrotik.API.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+
         [Route("GetInterface")]
         [HttpGet]
         public IHttpActionResult GetInterface()
@@ -79,6 +98,10 @@ namespace Mikrotik.API.Controllers
                 return InternalServerError(ex);
             }
         }
+        /// <summary>
+        /// /
+        /// </summary>
+        /// <returns></returns>
 
         [Route("GetIpAddress")]
         [HttpGet]
@@ -96,7 +119,10 @@ namespace Mikrotik.API.Controllers
                 return InternalServerError(ex);
             }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [Route("GetRoute")]
         [HttpGet]
         public IHttpActionResult GetRoute()
@@ -113,6 +139,10 @@ namespace Mikrotik.API.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         [Route("GetFiles")]
         [HttpGet]
         public IHttpActionResult GetFiles()

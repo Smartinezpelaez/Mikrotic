@@ -2,6 +2,7 @@ using System.Web.Http;
 using WebActivatorEx;
 using Mikrotik.API;
 using Swashbuckle.Application;
+using System.IO;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
@@ -9,6 +10,10 @@ namespace Mikrotik.API
 {
     public class SwaggerConfig
     {
+        protected static string GetXmlCommentsPath()
+        {
+            return Path.Combine(System.Web.HttpRuntime.AppDomainAppPath, "bin", "Mikrotic.API.xml");
+        }
         public static void Register()
         {
             var thisAssembly = typeof(SwaggerConfig).Assembly;
@@ -32,7 +37,9 @@ namespace Mikrotik.API
                         // hold additional metadata for an API. Version and title are required but you can also provide
                         // additional fields by chaining methods off SingleApiVersion.
                         //
-                        c.SingleApiVersion("v1", "Mikrotik.API");
+                        c.SingleApiVersion("v1", "Mikrotik.API").Description("El proyecto de muestra es  una palicacion " +
+                            " desarrollada en .Net Frameworks para realizar el monitoreo de los routers Mikrotic." +
+                            " ").Contact(x => x.Name("Steven Martinez & Antonio de la Cruz").Email("steven.martinez.0sp@utap.edu.co")); 
 
                         // If you want the output Swagger docs to be indented properly, enable the "PrettyPrint" option.
                         //
@@ -101,7 +108,7 @@ namespace Mikrotik.API
                         // those comments into the generated docs and UI. You can enable this by providing the path to one or
                         // more Xml comment files.
                         //
-                        //c.IncludeXmlComments(GetXmlCommentsPath());
+                          c.IncludeXmlComments(GetXmlCommentsPath());
 
                         // Swashbuckle makes a best attempt at generating Swagger compliant JSON schemas for the various types
                         // exposed in your API. However, there may be occasions when more control of the output is needed.
