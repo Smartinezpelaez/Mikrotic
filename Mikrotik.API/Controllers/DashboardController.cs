@@ -1,6 +1,7 @@
 ﻿using Mikrotik.BL.DTOs;
 using Newtonsoft.Json;
 using System;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace Mikrotik.API.Controllers
@@ -44,7 +45,10 @@ namespace Mikrotik.API.Controllers
                 ViewBag.SystemResource = mikrotikService.GetSystemResource();
                 ViewBag.QueueSimple = mikrotikService.GetQueueSimple();
                 ViewBag.QueueSimpleJson = JsonConvert.SerializeObject(mikrotikService.GetQueueSimple());
-                ViewBag.Interface = mikrotikService.GetInterface();                
+                ViewBag.Interface = mikrotikService.GetInterface();
+                ViewBag.IpAddress = mikrotikService.GetIpAddress();
+                ViewBag.Route = mikrotikService.GetRoute();
+                ViewBag.File = mikrotikService.GetFiles();
 
                 return View();
             }
