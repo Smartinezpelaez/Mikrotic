@@ -90,12 +90,6 @@
         </div>
     </div>
     <hr />
-    <div class="row">
-        <div class="col-md-6">
-            <div id="graph"></div>
-        </div>
-    </div>
-    <hr />
     <h1>Interface</h1>
     <hr />
     <div class="row">
@@ -132,22 +126,3 @@
         </div>
     </div>
 </div>
-
-@* data *@
-<input type="text" hidden id="dataQueue" value="@ViewBag.QueueSimpleJson" />
-
-<script type="text/javascript">
-    var dataQueue = $('#dataQueue').val();
-    var data = JSON.parse(dataQueue);
-
-    // Use Morris.Bar
-    Morris.Bar({
-        element: 'graph',
-        data: data,
-        xkey: 'Name',
-        ykeys: ['Up', 'Down'],
-        labels: ['Up', 'Down']
-    }).on('click', function (i, row) {
-        console.log(i, row);
-    });
-</script>

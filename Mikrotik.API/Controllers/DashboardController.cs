@@ -42,8 +42,7 @@ namespace Mikrotik.API.Controllers
             {
                 var mikrotikService = new BL.Services.MikrotikService();
                 ViewBag.SystemResource = mikrotikService.GetSystemResource();
-                ViewBag.QueueSimple = mikrotikService.GetQueueSimple();
-                ViewBag.QueueSimpleJson = JsonConvert.SerializeObject(mikrotikService.GetQueueSimple());
+                ViewBag.QueueSimple = mikrotikService.GetQueueSimple();               
                 ViewBag.Interface = mikrotikService.GetInterface();                
 
                 return View();
