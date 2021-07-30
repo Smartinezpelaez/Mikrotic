@@ -4,7 +4,7 @@ using System.Web.Http;
 
 namespace Mikrotik.API.Controllers
 {
-    [RoutePrefix("DashboardApi")]
+    [RoutePrefix("api/DashboardApi")]
     public class DashboardApiController : ApiController
     {
           /// <summary>

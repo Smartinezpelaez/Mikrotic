@@ -12,7 +12,7 @@ namespace Mikrotik.API
     {
         protected static string GetXmlCommentsPath()
         {
-            return Path.Combine(System.Web.HttpRuntime.AppDomainAppPath, "bin", "Mikrotic.API.xml");
+            return Path.Combine(System.Web.HttpRuntime.AppDomainAppPath, "bin", "Mikrotik.API.xml");
         }
         public static void Register()
         {
