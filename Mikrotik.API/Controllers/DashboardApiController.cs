@@ -7,11 +7,15 @@ namespace Mikrotik.API.Controllers
     [RoutePrefix("api/DashboardApi")]
     public class DashboardApiController : ApiController
     {
-          /// <summary>
-         /// 
+        /// <summary>
+        /// Metodo para traer los datos del DTO client
         /// </summary>
-        /// <param name="clientDTO"></param>
-       /// <returns></returns>
+        /// <param name="clientDTO">Objeto de autenticacion </param>
+        /// <returns></returns>
+        /// <response code = "200">ok. devuelve el objeto solicitado </response>
+        /// <response code = "400">badrequest. no se cumple la validacion del modelo </response>
+        /// <response code = "500">internalserver Error. Se ha presentado un error </response>
+        /// <summary>    
         [Route("Client")]
         [HttpPost]
         public IHttpActionResult Client(ClientDTO clientDTO)
@@ -33,12 +37,15 @@ namespace Mikrotik.API.Controllers
                 return InternalServerError(ex);
             }
         }
-
         /// <summary>
-        /// 
+        /// Metodo para traer los recursos del Router
         /// </summary>
-        ///  /// <param name="GetSystemResource"></param>
+        /// <param name="GetSystemResource">Objeto de autenticacion </param>
         /// <returns></returns>
+        /// <response code = "200">ok. devuelve el objeto solicitado </response>
+        /// <response code = "400">badrequest. no se cumple la validacion del modelo </response>
+        /// <response code = "500">internalserver Error. Se ha presentado un error </response>
+        /// <summary>    
         [Route("GetSystemResource")]
         [HttpGet]
         public IHttpActionResult GetSystemResource()
@@ -55,11 +62,15 @@ namespace Mikrotik.API.Controllers
                 return InternalServerError(ex);
             }
         }
-
         /// <summary>
-        /// 
+        /// Metodo para traer las colas
         /// </summary>
+        /// <param name="GetQueueSimple">Objeto de autenticacion </param>
         /// <returns></returns>
+        /// <response code = "200">ok. devuelve el objeto solicitado </response>
+        /// <response code = "400">badrequest. no se cumple la validacion del modelo </response>
+        /// <response code = "500">internalserver Error. Se ha presentado un error </response>
+        /// <summary>    
         [Route("GetQueueSimple")]
         [HttpGet]
         public IHttpActionResult GetQueueSimple()
@@ -76,12 +87,15 @@ namespace Mikrotik.API.Controllers
                 return InternalServerError(ex);
             }
         }
-
         /// <summary>
-        /// 
+        /// Metodo para traer las interfaces
         /// </summary>
+        /// <param name="GetInterface">Objeto de autenticacion </param>
         /// <returns></returns>
-
+        /// <response code = "200">ok. devuelve el objeto solicitado </response>
+        /// <response code = "400">badrequest. no se cumple la validacion del modelo </response>
+        /// <response code = "500">internalserver Error. Se ha presentado un error </response>
+        /// <summary>    
         [Route("GetInterface")]
         [HttpGet]
         public IHttpActionResult GetInterface()
@@ -99,10 +113,14 @@ namespace Mikrotik.API.Controllers
             }
         }
         /// <summary>
-        /// /
+        /// Metodo para traer las interfaces
         /// </summary>
+        /// <param name="GetIpAddress">Objeto de autenticacion </param>
         /// <returns></returns>
-
+        /// <response code = "200">ok. devuelve el objeto solicitado </response>
+        /// <response code = "400">badrequest. no se cumple la validacion del modelo </response>
+        /// <response code = "500">internalserver Error. Se ha presentado un error </response>
+        /// <summary>    
         [Route("GetIpAddress")]
         [HttpGet]
         public IHttpActionResult GetIpAddress()
@@ -120,9 +138,14 @@ namespace Mikrotik.API.Controllers
             }
         }
         /// <summary>
-        /// 
+        /// Metodo para traer las rutas del router
         /// </summary>
+        /// <param name="GetRoute">Objeto de autenticacion </param>
         /// <returns></returns>
+        /// <response code = "200">ok. devuelve el objeto solicitado </response>
+        /// <response code = "400">badrequest. no se cumple la validacion del modelo </response>
+        /// <response code = "500">internalserver Error. Se ha presentado un error </response>
+        /// <summary>    
         [Route("GetRoute")]
         [HttpGet]
         public IHttpActionResult GetRoute()
@@ -138,11 +161,15 @@ namespace Mikrotik.API.Controllers
                 return InternalServerError(ex);
             }
         }
-
         /// <summary>
-        /// 
+        /// Metodo para traer los archivos
         /// </summary>
+        /// <param name="GetFiles">Objeto de autenticacion </param>
         /// <returns></returns>
+        /// <response code = "200">ok. devuelve el objeto solicitado </response>
+        /// <response code = "400">badrequest. no se cumple la validacion del modelo </response>
+        /// <response code = "500">internalserver Error. Se ha presentado un error </response>
+        /// <summary>    
         [Route("GetFiles")]
         [HttpGet]
         public IHttpActionResult GetFiles()
